@@ -20,7 +20,8 @@ To add functionality to `verboten`:
 #
 module QuoteHayek
   def get_quote
-    "Emergencies' have always been the pretext on which the safeguards of individual liberty have been eroded."
+    'Emergencies have always been the pretext on which the'\
+    ' safeguards of individual liberty have been eroded.'
   end
 end
 ```
@@ -71,10 +72,8 @@ class MyController < VbotController
   #
   def initialize config
     super
-
     # instantiate subclass of VbotMsgLogic
-    @msg_logic = MyMsgLogic.new config
-  end
+    @msg_logic = MyMsgLogic.new config end
 end
 ```
 
@@ -105,6 +104,14 @@ trap("INT") { vbot.close_connection }
 Handle the connection
 ```
 vbot.handle_connection
+```
+
+###Give Commands
+To give commands to your bot, send it a message over IRC structured as
+"(BOT'S NICK) (COMMAND) (ARGUMENTS)"
+Example:
+```
+$ /msg verboten verboten quote
 ```
 
 ##TODO
