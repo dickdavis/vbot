@@ -18,7 +18,7 @@ config = {
   'chan' => '#ruby',                # the channel to join
  }
 ```
-Instantiate a new Verboten object, passing configuration hash as argument
+Instantiate a new `Verboten` object, passing configuration hash as argument
 ```
 verb = Verboten.new config
 ```
