@@ -6,9 +6,10 @@ require 'socket'
 require './vbotmsglogic'
 
 ##
-# This class serves as an IRC bot
+# This class establishes, maintains, and closes the connection
+# to the IRC server
 #
-class Verboten
+class VbotController
   attr_reader :server, :port, :nick, :ident, :gecos, :chan
 
   ##
