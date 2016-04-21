@@ -2,10 +2,10 @@
 ##Description
 `verboten` is an IRC bot that aims to be easy to extend and implement. If you like the way this project is going, feel free to contribute.
 
-The `VerbotenController` class establishes, maintains, and closes the connection to the IRC server, while the `VbotMsgLogic` class contains the controlling logic for responding to messages from the IRC server.
+The `VbotController` class establishes, maintains, and closes the connection to the IRC server, while the `VbotMsgLogic` class contains the controlling logic for responding to messages from the IRC server.
 
 ##Quick Guide
-Require the `VerbotenController` class
+Require the `VbotController` class
 ```
 require './vbotcontroller'
 ```
@@ -20,9 +20,9 @@ config = {
   'chan' => '#ruby',                # the channel to join
  }
 ```
-Instantiate a new `VerbotenController` object, passing the configuration hash as its an argument
+Instantiate a new `VbotController` object, passing the configuration hash as its an argument
 ```
-vbot = VerbotenController.new config
+vbot = VbotController.new config
 ```
 Trap interrupt signal (CTRL-c) to close the connection to the IRC server
 ```
