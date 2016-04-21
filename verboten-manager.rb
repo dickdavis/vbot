@@ -4,7 +4,7 @@
 # Copyright 2016 Richard Davis GPL v3
 
 require 'json'
-require './vbotcontroller'
+require './mycontroller'
 
 ##
 # Prompts user for configuration and saves as hash
@@ -72,7 +72,7 @@ else
 end
 
 # TODO add error handling
-vbot = VbotController.new config
+vbot = MyController.new config
 
 trap("INT") { vbot.close_connection }
 
