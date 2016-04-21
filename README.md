@@ -107,6 +107,8 @@ vbot.handle_connection
 ```
 
 ###Give Commands
+The only command that Verboten knows natively is the `hello` command.
+`verboten` will respond to channel or private messages, but he will respond in a private message by default.
 To give commands to your bot, send it a message over IRC structured as
 "(BOT'S NICK) (COMMAND) (ARGUMENTS)"
 Example:
