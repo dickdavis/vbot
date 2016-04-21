@@ -1,9 +1,9 @@
 ##
-# Verboten
+# VbotController
 #
 # Copyright 2016 Richard Davis LGPL-2.1
 require 'socket'
-require 'verboten/vbotmsglogic'
+require 'vbot/vbotmsglogic'
 
 ##
 # This class establishes, maintains, and closes the connection

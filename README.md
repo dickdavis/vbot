@@ -1,13 +1,13 @@
-#verboten: an IRC bot library in Ruby
+#vbot: an IRC bot library in Ruby
 ##Description
-`verboten` is an IRC bot library that aims to be make building and extending IRC bots more efficient.
+`vbot` is an IRC bot library that aims to be make building and extending IRC bots more efficient.
 The `VbotController` class establishes, maintains, and closes the connection to the IRC server, while the `VbotMsgLogic` class contains the controlling logic for responding to messages from the IRC server. `verboten-manager` gets the configuration from a JSON file or interactively from the user.
 
 ##Quick Guide
-To build a `verboten` bot
-* install `verboten` gem
+To build a `vbot` bot
+* install `vbot` gem
 ```
-gem install verboten
+gem install vbot
 ```
 * implement your methods in a module
 * include the module in a subclass the `VbotMsgLogic` class
@@ -33,7 +33,7 @@ end
 ###Subclass VbotMsgLogic class
 
 ```
-require 'verboten'
+require 'vbot'
 require './quotehayek.rb'
 
 ##
@@ -62,7 +62,7 @@ end
 ###Subclass VbotController class
 
 ```
-require 'verboten'
+require 'vbot'
 require './mymsglogic.rb'
 
 ##
@@ -110,8 +110,8 @@ vbot.handle_connection
 ```
 
 ###Give Commands
-The only command that Verboten knows natively is the `hello` command.
-`verboten` will respond to channel or private messages, but he will respond in a private message by default.
+The only command that `vbot` knows natively is the `hello` command.
+`vbot` will respond to channel or private messages, but it will respond in a private message by default.
 To give commands to your bot, send it a message over IRC structured as
 "(BOT'S NICK) (COMMAND) (ARGUMENTS)"
 Example:
