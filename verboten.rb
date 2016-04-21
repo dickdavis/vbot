@@ -1,35 +1,66 @@
 require 'socket'
 
-# connection configuration
-server = 'irc.maddshark.net'
-port = 6668
-nickname = 'verboten'
-ident = 'vbot'
-gecos = 'Verboten 0.0.1'
-channel = '#fnord'
+class Verboten
+  attr_reader :server, :port, :nick, :ident, :gecos, :chan
 
-# open a socket
-socket = TCPSocket.open(server, port)
+  def initialize config
+    @server = config['server']
+    @port = config['port']
+    @nick = config['nick']
+    @ident = config['ident']
+    @gecos = config['gecos']
+    @chan = config['chan']
+    start_connection
+  end
 
-trap "INT" { socket.puts 'QUIT' ; socket.close }
+  def send_msg msg
+    @socket.puts msg
+  end
 
-socket.puts "NICK #{nickname}\r\n"
-socket.puts "USER #{ident} * 8 :#{gecos}\r\n"
+  def join_channel
+    send_msg "JOIN #{@chan}\r\n"
+  end
 
-until socket.closed? do
-  buffer = socket.gets
-  data = buffer.split
-  socket.puts "PONG #{data[1]}" if data[0] == 'PING'
-  socket.puts "JOIN #{channel}\r\n" if data[1] == '376' || data[1] == '422'
-  if data[1] == "PRIVMSG" && data[3] == ":verboten"
-    rt = data[0]
+  def handle_ping token
+    send_msg "PONG #{token}"
+  end
+
+  def get_user_rt msg
     last = 1
-    rt.each_char.with_index do |char, i|
+    msg.each_char.with_index do |char, i|
       last = i-1 if char == '!'
     end
-    capture_rt = rt.slice(1, last)
-    socket.puts "PRIVMSG #{capture_rt} Hello, world.\r\n"
+    rt = msg.slice(1, last)
   end
-  puts buffer
+
+  def start_connection
+    @socket = TCPSocket.open @server, @port
+    send_msg "NICK #{@nick}\r\n"
+    send_msg "USER #{@ident} * 8 :#{@gecos}\r\n"
+  end
+
+  def handle_connection
+    begin
+      until @socket.eof? do
+        buffer = @socket.gets
+        puts buffer
+        data = buffer.split
+        handle_ping data[1] if data[0] == 'PING'
+        join_channel if data[1] == '376' || data[1] == '422'
+        if data[1] == "PRIVMSG" && data[3] == ":verboten"
+          msg = data[0]
+          rt = get_user_rt msg
+          send_msg "PRIVMSG #{rt} Hello, world.\r\n"
+        end
+      end
+    rescue
+      puts "\nTerminating connection."
+    end
+  end
+
+  def close_connection
+    send_msg 'QUIT'
+    @socket.close
+  end
 end
 
