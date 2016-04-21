@@ -1,9 +1,16 @@
+##
+# VbotMsgLogic
+#
+# Copyright 2016 Richard Davis GPL v3
+
+##
+# This class serves as the controlling logic for responding
+# to messages from the IRC server
+#
 
 class VbotMsgLogic
-  attr_reader :msg
 
   def initialize config
-    @msg = msg
     @nick = config['nick']
     @ident = config['ident']
     @gecos = config['gecos']
@@ -28,14 +35,14 @@ class VbotMsgLogic
   # Joins to channel on IRC server
   #
   def join_channel
-    return "JOIN #{@chan}\r\n"
+    "JOIN #{@chan}\r\n"
   end
 
   ##
   # Handles ping message from server
   #
   def handle_ping token
-    return "PONG #{token}"
+    "PONG #{token}"
   end
 
   ##
@@ -45,7 +52,7 @@ class VbotMsgLogic
       rt = get_nick_rt data[0]
       command = data[4]
       if command.upcase == "HELLO"
-        return "PRIVMSG #{rt} Hello, #{rt}.\r\n"
+        "PRIVMSG #{rt} Hello, #{rt}.\r\n"
       end
   end
 
