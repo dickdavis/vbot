@@ -7,7 +7,6 @@
 # This class serves as the controlling logic for responding
 # to messages from the IRC server
 #
-
 class VbotMsgLogic
 
   def initialize config
