@@ -1,13 +1,15 @@
 #verboten: an IRC bot in Ruby
 ##Description
-`Verboten` is an IRC bot that aims to be easy to extend and implement. If you like the way this project is going, feel free to contribute.
+`verboten` is an IRC bot that aims to be easy to extend and implement. If you like the way this project is going, feel free to contribute.
+
+The `VbotController` class establishes, maintains, and closes the connection to the IRC server, while the `VbotMsgLogic` class contains the controlling logic for responding to messages from the IRC server.
 
 ##Quick Guide
-Require the `Verboten` class
+Require the `VbotController` class
 ```
-require './verboten'
+require './vbotcontroller'
 ```
-Initialize a configuration hash
+Initialize a configuration hash with the connection details
 ```
 config = {
   'server' => 'irc.freenode.net',   # the server for tcp socket
@@ -18,23 +20,24 @@ config = {
   'chan' => '#ruby',                # the channel to join
  }
 ```
-Instantiate a new `Verboten` object, passing configuration hash as argument
+Instantiate a new `VbotController` object, passing the configuration hash as its an argument
 ```
-verb = Verboten.new config
+vbot = VbotController.new config
 ```
 Trap interrupt signal (CTRL-c) to close the connection to the IRC server
 ```
-trap("INT") { verb.close_connection }
+trap("INT") { vbot.close_connection }
 ```
 Handle the connection
 ```
-verb.handle_connection
+vbot.handle_connection
 ```
-Look at methods to explore capabilities. More to come.
+##Adding Functionality
+To add functionality to `verboten`, you must implement your methods in a module, include them in the `VbotMsgLogic` class, and then modify the `hear_command` method so that `verboten` will recognize and respond to the new commands.
 
 
 ##TODO
-* `VerbotenController` class that manages a queue of `Verboten` instances in threads.
+* `VbotManager` class that manages a queue of `VbotController` instances in threads.
 * Modular bot functionalities.
 
 ##License
