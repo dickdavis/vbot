@@ -1,11 +1,14 @@
 #verboten: an IRC bot library in Ruby
 ##Description
-`verboten` is an IRC bot library that aims to be make running easy to extend and implement. If you like the way this project is going, feel free to contribute.
-
+`verboten` is an IRC bot library that aims to be make building and extending IRC bots more efficient.
 The `VbotController` class establishes, maintains, and closes the connection to the IRC server, while the `VbotMsgLogic` class contains the controlling logic for responding to messages from the IRC server. `verboten-manager` gets the configuration from a JSON file or interactively from the user.
 
 ##Quick Guide
-To add functionality to `verboten`:
+To build a `verboten` bot
+* install `verboten` gem
+```
+gem install verboten
+```
 * implement your methods in a module
 * include the module in a subclass the `VbotMsgLogic` class
 * override the `VbotMsgLogic::hear_command` method
@@ -30,7 +33,7 @@ end
 ###Subclass VbotMsgLogic class
 
 ```
-require './vbotmsglogic.rb'
+require 'verboten'
 require './quotehayek.rb'
 
 ##
@@ -59,7 +62,7 @@ end
 ###Subclass VbotController class
 
 ```
-require './vbotcontroller'
+require 'verboten'
 require './mymsglogic.rb'
 
 ##
@@ -121,4 +124,4 @@ $ /msg verboten verboten quote
 * Modular bot functionalities.
 
 ##License
-LGPL v2.1
+LGPL-2.1

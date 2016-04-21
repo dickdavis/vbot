@@ -1,7 +1,7 @@
 ##
 # VbotMsgLogic
 #
-# Copyright 2016 Richard Davis GPL v3
+# Copyright 2016 Richard Davis LGPL-2.1
 
 ##
 # This class serves as the controlling logic for responding

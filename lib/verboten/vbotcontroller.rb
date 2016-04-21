@@ -1,9 +1,9 @@
 ##
 # Verboten
 #
-# Copyright 2016 Richard Davis GPL v3
+# Copyright 2016 Richard Davis LGPL-2.1
 require 'socket'
-require './vbotmsglogic'
+require 'verboten/vbotmsglogic'
 
 ##
 # This class establishes, maintains, and closes the connection
