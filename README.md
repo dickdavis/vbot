@@ -1,4 +1,4 @@
-#verboten
+#verboten: an IRC bot in Ruby
 ##Description
 `Verboten` is an IRC bot that aims to be easy to extend and implement. If you like the way this project is going, feel free to contribute.
 
