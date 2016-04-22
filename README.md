@@ -112,8 +112,11 @@ vbot.handle_connection
 ###Give Commands
 The only command that `vbot` knows natively is the `hello` command.
 `vbot` will respond to channel or private messages, but it will respond in a private message by default.
-To give commands to your bot, send it a message over IRC structured as
+To give commands to your bot, send it a message over IRC structured as:
+```
 "(BOT'S NICK) (COMMAND) (ARGUMENTS)"
+```
+
 Example:
 ```
 $ /msg verboten verboten quote
