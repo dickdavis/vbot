@@ -1,7 +1,7 @@
 #vbot: an IRC bot library in Ruby
 ##Description
 `vbot` is an IRC bot library that aims to be make building and extending IRC bots more efficient.
-The `VbotController` class establishes, maintains, and closes the connection to the IRC server, while the `VbotMsgLogic` class contains the controlling logic for responding to messages from the IRC server. `verboten-manager` gets the configuration from a JSON file or interactively from the user.
+The `VbotController` class establishes, maintains, and closes the connection to the IRC server, while the `VbotMsgLogic` class contains the controlling logic for responding to messages from the IRC server.
 
 ##Quick Guide
 To build a `vbot` bot
