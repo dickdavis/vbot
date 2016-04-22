@@ -27,7 +27,7 @@ class VbotController
   end
 
   ##
-  # Handles writing to socket output
+  # Writes to socket output
   #
   def send_msg msg
     @socket.puts msg
