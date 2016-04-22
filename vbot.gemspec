@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 	s.authors       = ["Richard Davis"]
 	s.email         = 'dick@sbdsec.com'
 	s.homepage      = 'http://github.com/d3d1rty/vbot'
-	s.summary       = 'vbot is an IRC bot library'
+	s.summary       = 'Ruby library for building IRC bots'
 	s.description   = <<-EOF 
 vbot is an IRC bot library that aims to be make building and extending IRC bots more efficient.
 EOF
