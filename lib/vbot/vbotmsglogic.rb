@@ -9,6 +9,9 @@
 #
 class VbotMsgLogic
 
+  ##
+  # Initializes a VbotMsgLogic object
+  #
   def initialize config
     @nick = config['nick']
     @ident = config['ident']
