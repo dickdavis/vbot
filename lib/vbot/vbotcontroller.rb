@@ -13,8 +13,7 @@ class VbotController
   attr_reader :server, :port, :nick, :ident, :gecos, :chan
 
   ##
-  # Initializes a Verboten object with configuration details
-  # stored in argument as a hash
+  # Initializes a VbotController object
   #
   def initialize config
     @server = config['server']
@@ -33,6 +32,7 @@ class VbotController
   def send_msg msg
     @socket.puts msg
   end
+
   ##
   # Starts the connection to the server and provides identification
   #
