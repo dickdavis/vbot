@@ -1,9 +1,9 @@
-#vbot: an IRC bot library in Ruby
-##Description
+# vbot: an IRC bot library in Ruby
+## Description
 `vbot` is an IRC bot library that aims to be make building and extending IRC bots more efficient.
 The `VbotController` class establishes, maintains, and closes the connection to the IRC server, while the `VbotMsgLogic` class contains the controlling logic for responding to messages from the IRC server.
 
-##Quick Guide
+## Quick Guide
 To build a `vbot` bot
 * install `vbot` gem
 ```
@@ -15,7 +15,7 @@ gem install vbot
 * instantiate `VbotMsgClass` as instance variable of `VbotController` subclass
 * write manager script to run bot
 
-###Write a Module
+### Write a Module
 
 ```
 ##
@@ -29,8 +29,7 @@ module QuoteHayek
 end
 ```
 
-
-###Subclass VbotMsgLogic class
+### Subclass VbotMsgLogic class
 
 ```
 require 'vbot'
@@ -59,7 +58,7 @@ class MyMsgLogic < VbotMsgLogic
 end
 ```
 
-###Subclass VbotController class
+### Subclass VbotController class
 
 ```
 require 'vbot'
@@ -80,7 +79,7 @@ class MyController < VbotController
 end
 ```
 
-###Write a manager script to run your new bot
+### Write a manager script to run your new bot
 Require the subclass of `VbotController`
 ```
 require './mycontroller'
@@ -109,7 +108,7 @@ Handle the connection
 vbot.handle_connection
 ```
 
-###Give Commands
+### Give Commands
 The only command that `vbot` knows natively is the `hello` command.
 `vbot` will respond to channel or private messages, but it will respond in a private message by default.
 To give commands to your bot, send it a message over IRC structured as:
@@ -122,11 +121,11 @@ Example:
 $ /msg verboten verboten quote
 ```
 
-##TODO
+## TODO
 * `VbotManager` class that manages a queue of `VbotController` instances in threads.
 * Modular bot functionalities.
 
-##License
+## License
 Copyright (C) 2016  Richard Davis
 
 This library is free software; you can redistribute it and/or
