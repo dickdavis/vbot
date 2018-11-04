@@ -17,22 +17,24 @@
 # You should have received a copy of the GNU General Public License
 # along with vbot.  If not, see <http://www.gnu.org/licenses/>.
 
-lib = File.expand_path('../lib', __dir__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'minitest/autorun'
+require_relative '../lib/vbot/bot_controller'
 
-Gem::Specification.new do |s|
-	s.name          = 'vbot'
-	s.version       = '0.2.1'
-	s.platform      = Gem::Platform::RUBY
-	s.authors       = ['Richard Davis']
-  s.email         = 'rv@member.fsf.org'
-	s.homepage      = 'http://github.com/d3d1rty/vbot'
-	s.summary       = 'Ruby library for building IRC bots'
-	s.description   = <<~HEREDOC
-    vbot is an IRC bot library that aims to be make building and extending IRC bots more efficient.
-  HEREDOC
-  s.license       = 'GPL-3.0'
-  s.files         = Dir['lib/**/*']
-  s.test_files    = Dir['test/**/*']
-  s.require_path  = ['lib']
+##
+# = BotControllerTest
+# Author::    Richard Davis
+# Copyright:: Copyright 2018 Richard Davis
+# License::   GNU Public License 3
+#
+# Contains tests for the BotController class.
+class BotControllerTest < Minitest::Test
+  ##
+  # Initializes test with sample data
+  def setup
+  end
+
+  ##
+  # Ensures the greeter is behaving as expected
+  def test_default
+  end
 end

@@ -1,22 +1,27 @@
 # vbot: an IRC bot library in Ruby
 ## Description
 `vbot` is an IRC bot library that aims to be make building and extending IRC bots more efficient.
-The `VbotController` class establishes, maintains, and closes the connection to the IRC server, while the `VbotMsgLogic` class contains the controlling logic for responding to messages from the IRC server.
 
 ## Quick Guide
-To build a `vbot` bot
-* install `vbot` gem
+To build a `vbot` bot, you may either:
+
+* Install the `vbot` gem by executing command:
 ```
 gem install vbot
 ```
-* implement your methods in a module
-* include the module in a subclass the `VbotMsgLogic` class
-* override the `VbotMsgLogic::hear_command` method
-* instantiate `VbotMsgClass` as instance variable of `VbotController` subclass
-* write manager script to run bot
+
+* Or require it in your project Gemfile:
+```
+gem 'vbot', '~> 0.2.1
+```
+
+Then,
+* Implement your methods in a module.
+* Subclass `Vbot::BotController` and include the module.
+* Write a script to run the bot.
 
 ### Write a Module
-
+Write a module to perform custom functionality.
 ```
 ##
 # Module to add functionality to MyMsgLogic
@@ -29,75 +34,57 @@ module QuoteHayek
 end
 ```
 
-### Subclass VbotMsgLogic class
+### Subclass Vbot::BotController Class
+Subclass the `Vbot::BotController` class and include the modules containing the custom functionality.
+Override the `exec_command_subroutine` method to use the new functionality, returning a string to send
+to the IRC server if you desire a response message to be sent.
 
+The message from the server containing the command is parsed into a hash that should get passed into the
+`exec_command_subroutine` method. The hash contains
+* the reply to nick (`command_hash[:reply_to] // string`),
+* whether the command was given via channel or private message (`command_hash[:pm] // boolean: true if given via PM`), 
+* the actual command (`command_hash[:command] // string`),
+* and any arguments that follow the command (`command_hash[:arguments] // array`).
 ```
 require 'vbot'
 require './quotehayek.rb'
 
 ##
-# Extends VbotMsgLogic, implementing new functionality in bot
-#
-class MyMsgLogic < VbotMsgLogic
+# Adds custom command subroutine to bot.
+class MyBot < Vbot::BotController
   include QuoteHayek
 
   ##
-  # Define hear_command method to respond to commands in module
-  #
-  def hear_command data
-    # get the nick to reply to
-    rt = get_nick_rt data[0]
-    # get the command
-    command = data[4]
-    # runs method from module if command is given
-    if command.upcase == 'QUOTE'
-      response = get_quote
-      "PRIVMSG #{rt} #{response} - F.A. Hayek"
+  # Executes command subroutines.
+  def exec_command_subroutine(command_hash)
+    if command_hash[:command].upcase == 'HOWDY' && command_hash[:pm] == true
+      "PRIVMSG #{command_hash[:reply_to]} :Howdy, #{command_hash[:reply_to]}.\r\n"
+    elsif command_hash[:command].upcase == 'HOWDY' && command_hash[:pm] == false
+      "PRIVMSG #{@chan} :Howdy, #{command_hash[:reply_to]}.\r\n"
     end
   end
 end
 ```
 
-### Subclass VbotController class
-
-```
-require 'vbot'
-require './mymsglogic.rb'
-
-##
-# Extends the Vbot Controller class adding new message logic
-#
-class MyController < VbotController
-
-  ##
-  # Initializes MyController object with MyMsgLogic
-  #
-  def initialize config
-    super
-    # instantiate subclass of VbotMsgLogic
-    @msg_logic = MyMsgLogic.new config end
-end
-```
-
-### Write a manager script to run your new bot
+### Write a Script to Run the Bot
 Require the subclass of `VbotController`
 ```
-require './mycontroller'
+require './my_bot'
 ```
 Initialize a configuration hash with the connection details
 ```
 config = {
-  'server' => 'irc.freenode.net',   # the server for tcp socket
-  'port' => 6667,                   # the port for tcp socket
-  'nick' => 'verboten',             # the desired nickname
-  'ident' => 'vbot',                # the user name
-  'gecos' => 'Verboten 0.0.1',      # the real name
-  'chan' => '#ruby',                # the channel to join
- }
+  'server' => 'hackerchan.org',   # the server for tcp socket
+  'port' => 6667,                 # the port for tcp socket
+  'nick' => 'mybot',              # the desired nickname
+  'ident' => 'vbot',              # the user name
+  'gecos' => 'MyBot 0.0.1',       # the real name
+  'chan' => '#dailyprog',         # the channel to join
+}
 ```
 Instantiate a controller object, passing the configuration hash as an argument
 ```
-vbot = MyController.new config
+vbot = MyBot.new config
 ```
 Trap interrupt signal (CTRL-c) to close the connection to the IRC server
 ```
@@ -109,8 +96,6 @@ vbot.handle_connection
 ```
 
 ### Give Commands
-The only command that `vbot` knows natively is the `hello` command.
-`vbot` will respond to channel or private messages, but it will respond in a private message by default.
 To give commands to your bot, send it a message over IRC structured as:
 ```
 "(BOT'S NICK) (COMMAND) (ARGUMENTS)"
@@ -118,22 +103,14 @@ To give commands to your bot, send it a message over IRC structured as:
 
 Example:
 ```
-$ /msg verboten verboten quote
+$ verboten quote-hayek
 ```
 
 ## TODO
-* `VbotManager` class that manages a queue of `VbotController` instances in threads.
-* Modular bot functionalities.
+* Increase test coverage.
 
-## License
-Copyright (C) 2016  Richard Davis
-
-This library is free software; you can redistribute it and/or
-modify it under the terms of the GNU Lesser General Public
-License as published by the Free Software Foundation; either
-version 2.1 of the License, or (at your option) any later version.
-
-This library is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-Lesser General Public License for more details.
+## Changelog
+### 2018-11-03
+* Refactored project files.
+* Structured test file.
+* Added documentation and rdoc rake task.

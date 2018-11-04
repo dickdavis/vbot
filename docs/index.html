@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>vbot Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+  var index_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="file">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  <div id="project-metadata">
+    <div id="fileindex-section" class="nav-section">
+  <h3>Pages</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./README_md.html">README</a>
+  
+  </ul>
+</div>
+
+    <div id="classindex-section" class="nav-section">
+  <h3>Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./BotControllerTest.html">BotControllerTest</a>
+  
+    <li><a href="./Vbot.html">Vbot</a>
+  
+    <li><a href="./Vbot/BotController.html">Vbot::BotController</a>
+  
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main">
+
+
+<h1 id="label-vbot-3A+an+IRC+bot+library+in+Ruby">vbot: an IRC bot library in Ruby<span><a href="#label-vbot-3A+an+IRC+bot+library+in+Ruby">&para;</a> <a href="#top">&uarr;</a></span></h1>
+
+<h2 id="label-Description">Description<span><a href="#label-Description">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p><code>vbot</code> is an IRC bot library that aims to be make building and
+extending IRC bots more efficient.</p>
+
+<h2 id="label-Quick+Guide">Quick Guide<span><a href="#label-Quick+Guide">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>To build a <code>vbot</code> bot, you may either:</p>
+<ul><li>
+<p>Install the <code>vbot</code> gem by executing command: <code> gem install
+vbot </code></p>
+</li><li>
+<p>Or require it in your project Gemfile: <code> gem &#39;vbot&#39;,
+&#39;~&gt; 0.2.1 </code> Then,</p>
+</li><li>
+<p>Implement your methods in a module.</p>
+</li><li>
+<p>Subclass <code>Vbot::BotController</code> and include the module.</p>
+</li><li>
+<p>Write a script to run the bot.</p>
+</li></ul>
+
+<h3 id="label-Write+a+Module">Write a Module<span><a href="#label-Write+a+Module">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>Write a module to perform custom functionality. <code> ## # Module to add
+functionality to MyMsgLogic # module QuoteHayek   def get_quote    
+&#39;Emergencies have always been the pretext on which the&#39;\     &#39;
+safeguards of individual liberty have been eroded.&#39;   end end </code></p>
+
+<h3 id="label-Subclass+Vbot-3A-3ABotController+Class">Subclass <a href="Vbot/BotController.html">Vbot::BotController</a> Class<span><a href="#label-Subclass+Vbot-3A-3ABotController+Class">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>Subclass the <code>Vbot::BotController</code> class and include the modules
+containing the custom functionality. Override the
+<code>exec_command_subroutine</code> method to use the new functionality,
+returning a string to send to the IRC server if you desire a response
+message to be sent.</p>
+
+<p>The message from the server containing the command is parsed into a hash
+that should get passed into the <code>exec_command_subroutine</code>
+method. The hash contains * the reply to nick
+(<code>command_hash[:reply_to] // string</code>), * whether the command was
+given via channel or private message (<code>command_hash[:pm] // boolean:
+true if given via PM</code>), * the actual command
+(<code>command_hash[:command] // string</code>), * and any arguments that
+follow the command (<code>command_hash[:arguments] // array</code>). “`
+require &#39;vbot&#39; require &#39;./quotehayek.rb&#39;</p>
+
+<p>##</p>
+
+<h1 id="label-Adds+custom+command+subroutine+to+bot.">Adds custom command subroutine to bot.<span><a href="#label-Adds+custom+command+subroutine+to+bot.">&para;</a> <a href="#top">&uarr;</a></span></h1>
+
+<p>class MyBot &lt; <a href="Vbot/BotController.html">Vbot::BotController</a> 
+include QuoteHayek</p>
+
+<p>##  # Executes command subroutines.  def
+exec_command_subroutine(command_hash)  if <a
+href=":command">command_hash</a>.upcase == &#39;HOWDY&#39; &amp;&amp; <a
+href=":pm">command_hash</a> == true  “PRIVMSG #{<a
+href=":reply_to">command_hash</a>} :Howdy, #{<a
+href=":reply_to">command_hash</a>}.rn”  elsif <a
+href=":command">command_hash</a>.upcase == &#39;HOWDY&#39; &amp;&amp; <a
+href=":pm">command_hash</a> == false  “PRIVMSG #{@chan} :Howdy, #{<a
+href=":reply_to">command_hash</a>}.rn”  end  end end “`</p>
+
+<h3 id="label-Write+a+Script+to+Run+the+Bot">Write a Script to Run the Bot<span><a href="#label-Write+a+Script+to+Run+the+Bot">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>Require the subclass of <code>VbotController</code> <code> require
+&#39;./my_bot&#39; </code> Initialize a configuration hash with the
+connection details <code> config = {   &#39;server&#39; =&gt;
+&#39;hackerchan.org&#39;,   # the server for tcp socket   &#39;port&#39;
+=&gt; 6667,                 # the port for tcp socket   &#39;nick&#39;
+=&gt; &#39;mybot&#39;,              # the desired nickname  
+&#39;ident&#39; =&gt; &#39;vbot&#39;,              # the user name  
+&#39;gecos&#39; =&gt; &#39;MyBot 0.0.1&#39;,       # the real name  
+&#39;chan&#39; =&gt; &#39;#dailyprog&#39;,         # the channel to join }
+</code> Instantiate a controller object, passing the configuration hash as
+an argument <code> vbot = MyBot.new config </code> Trap interrupt signal
+(CTRL-c) to close the connection to the IRC server <code>
+trap(&quot;INT&quot;) { vbot.close_connection } </code> Handle the
+connection <code> vbot.handle_connection </code></p>
+
+<h3 id="label-Give+Commands">Give Commands<span><a href="#label-Give+Commands">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>To give commands to your bot, send it a message over IRC structured as:
+<code> &quot;(BOT&#39;S NICK) (COMMAND) (ARGUMENTS)&quot; </code></p>
+
+<p>Example: <code> $ verboten quote-hayek </code></p>
+
+<h2 id="label-TODO">TODO<span><a href="#label-TODO">&para;</a> <a href="#top">&uarr;</a></span></h2>
+<ul><li>
+<p>Increase test coverage.</p>
+</li></ul>
+
+<h2 id="label-Changelog">Changelog<span><a href="#label-Changelog">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<h3 id="label-2018-11-03">2018-11-03<span><a href="#label-2018-11-03">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Refactored project files.</p>
+</li><li>
+<p>Structured test file.</p>
+</li><li>
+<p>Added documentation and rdoc rake task.</p>
+</li></ul>
+</main>
+
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.0.4.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

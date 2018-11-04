@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class Vbot::BotController - vbot Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+  var index_rel_prefix = "../";
+</script>
+
+<script src="../js/jquery.js"></script>
+<script src="../js/darkfish.js"></script>
+
+<link href="../css/fonts.css" rel="stylesheet">
+<link href="../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../table_of_contents.html#pages">Pages</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link">Object
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-close_connection">#close_connection</a>
+    
+    <li ><a href="#method-i-exec_command_subroutine">#exec_command_subroutine</a>
+    
+    <li ><a href="#method-i-get_nick_rt">#get_nick_rt</a>
+    
+    <li ><a href="#method-i-handle_connection">#handle_connection</a>
+    
+    <li ><a href="#method-i-handle_ping">#handle_ping</a>
+    
+    <li ><a href="#method-i-ident_with_server">#ident_with_server</a>
+    
+    <li ><a href="#method-i-interpret_command">#interpret_command</a>
+    
+    <li ><a href="#method-i-is_private_message-3F">#is_private_message?</a>
+    
+    <li ><a href="#method-i-join_to_channel">#join_to_channel</a>
+    
+    <li ><a href="#method-i-nick_to_server">#nick_to_server</a>
+    
+    <li ><a href="#method-i-parse_message">#parse_message</a>
+    
+    <li ><a href="#method-i-quit_from_server">#quit_from_server</a>
+    
+    <li ><a href="#method-i-send_message">#send_message</a>
+    
+    <li ><a href="#method-i-start_connection">#start_connection</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-Vbot::BotController">
+  <h1 id="class-Vbot::BotController" class="class">
+    class Vbot::BotController
+  </h1>
+
+  <section class="description">
+    
+<h1 id="class-Vbot::BotController-label-BotController"><a href="BotController.html">BotController</a><span><a href="#class-Vbot::BotController-label-BotController">&para;</a> <a href="#top">&uarr;</a></span></h1>
+<dl class="rdoc-list note-list"><dt>Author
+<dd>
+<p>Richard Davis</p>
+</dd><dt>Copyright
+<dd>
+<p>Copyright 2018 Richard Davis</p>
+</dd><dt>License
+<dd>
+<p>GNU Public License 3</p>
+</dd></dl>
+
+<p>This class establishes, maintains, and closes the connection to the IRC
+server.</p>
+
+  </section>
+
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+    <section class="attribute-method-details" class="method-section">
+      <header>
+        <h3>Attributes</h3>
+      </header>
+
+      
+      <div id="attribute-i-chan" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">chan</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>The channel on the IRC server to join.</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-gecos" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">gecos</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>The gecos for the bot.</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-ident" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">ident</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>The name to identify to the server with.</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-nick" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">nick</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>The nick for the bot.</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-port" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">port</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>The port to connect over.</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-server" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">server</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>The IRC server to connect to.</p>
+        
+        </div>
+      </div>
+      
+    </section>
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(config)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Initializes a VbotController object</p>
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/vbot/bot_controller.rb, line 47</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span> <span class="ruby-identifier">config</span>
+  <span class="ruby-ivar">@server</span> = <span class="ruby-identifier">config</span>[<span class="ruby-string">&#39;server&#39;</span>]
+  <span class="ruby-ivar">@port</span> = <span class="ruby-identifier">config</span>[<span class="ruby-string">&#39;port&#39;</span>]
+  <span class="ruby-ivar">@nick</span> = <span class="ruby-identifier">config</span>[<span class="ruby-string">&#39;nick&#39;</span>]
+  <span class="ruby-ivar">@ident</span> = <span class="ruby-identifier">config</span>[<span class="ruby-string">&#39;ident&#39;</span>]
+  <span class="ruby-ivar">@gecos</span> = <span class="ruby-identifier">config</span>[<span class="ruby-string">&#39;gecos&#39;</span>]
+  <span class="ruby-ivar">@chan</span> = <span class="ruby-identifier">config</span>[<span class="ruby-string">&#39;chan&#39;</span>]
+  <span class="ruby-identifier">start_connection</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-close_connection" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">close_connection</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Closes the connection to the server.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="close_connection-source">
+            <pre><span class="ruby-comment"># File lib/vbot/bot_controller.rb, line 88</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">close_connection</span>
+  <span class="ruby-identifier">send_message</span> <span class="ruby-identifier">quit_from_server</span>
+  <span class="ruby-ivar">@socket</span>.<span class="ruby-identifier">close</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-handle_connection" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">handle_connection</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Handles the connection to the server.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="handle_connection-source">
+            <pre><span class="ruby-comment"># File lib/vbot/bot_controller.rb, line 67</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">handle_connection</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-keyword">until</span> <span class="ruby-ivar">@socket</span>.<span class="ruby-identifier">eof?</span> <span class="ruby-keyword">do</span>
+      <span class="ruby-identifier">buffer</span> = <span class="ruby-ivar">@socket</span>.<span class="ruby-identifier">gets</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-identifier">buffer</span>
+      <span class="ruby-identifier">msg</span> = <span class="ruby-identifier">buffer</span>.<span class="ruby-identifier">split</span>
+      <span class="ruby-identifier">response</span> = <span class="ruby-identifier">parse_message</span> <span class="ruby-identifier">msg</span>
+      <span class="ruby-keyword">unless</span> <span class="ruby-identifier">response</span>.<span class="ruby-identifier">nil?</span>
+        <span class="ruby-identifier">send_message</span> <span class="ruby-identifier">response</span>
+        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#{@nick.upcase} =&gt; #{response}&quot;</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">SocketError</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-identifier">close_connection</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;\nERROR IN CONNECTION. Terminating...\n&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-start_connection" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">start_connection</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Starts the connection to the server and provides identification.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="start_connection-source">
+            <pre><span class="ruby-comment"># File lib/vbot/bot_controller.rb, line 59</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">start_connection</span>
+  <span class="ruby-ivar">@socket</span> = <span class="ruby-constant">TCPSocket</span>.<span class="ruby-identifier">open</span> <span class="ruby-ivar">@server</span>, <span class="ruby-ivar">@port</span>
+  <span class="ruby-identifier">send_message</span> <span class="ruby-identifier">nick_to_server</span>
+  <span class="ruby-identifier">send_message</span> <span class="ruby-identifier">ident_with_server</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="private-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Private Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-exec_command_subroutine" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">exec_command_subroutine</span><span
+            class="method-args">(command_hash)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Executes command subroutines.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="exec_command_subroutine-source">
+            <pre><span class="ruby-comment"># File lib/vbot/bot_controller.rb, line 155</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">exec_command_subroutine</span>(<span class="ruby-identifier">command_hash</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">command_hash</span>[<span class="ruby-value">:command</span>].<span class="ruby-identifier">upcase</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;HOWDY&#39;</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">command_hash</span>[<span class="ruby-value">:pm</span>] <span class="ruby-operator">==</span> <span class="ruby-keyword">true</span>
+    <span class="ruby-node">&quot;PRIVMSG #{command_hash[:reply_to]} :Howdy, #{command_hash[:reply_to]}.\r\n&quot;</span>
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">command_hash</span>[<span class="ruby-value">:command</span>].<span class="ruby-identifier">upcase</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;HOWDY&#39;</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">command_hash</span>[<span class="ruby-value">:pm</span>] <span class="ruby-operator">==</span> <span class="ruby-keyword">false</span>
+    <span class="ruby-node">&quot;PRIVMSG #{@chan} :Howdy, #{command_hash[:reply_to]}.\r\n&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-get_nick_rt" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_nick_rt</span><span
+            class="method-args">(raw_rt)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Gets the nick to reply to.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="get_nick_rt-source">
+            <pre><span class="ruby-comment"># File lib/vbot/bot_controller.rb, line 127</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_nick_rt</span>(<span class="ruby-identifier">raw_rt</span>)
+  <span class="ruby-identifier">last</span> = <span class="ruby-value">1</span>
+  <span class="ruby-identifier">raw_rt</span>.<span class="ruby-identifier">each_char</span>.<span class="ruby-identifier">with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">char</span>, <span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">last</span> = <span class="ruby-identifier">i</span><span class="ruby-value">-1</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">char</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;!&#39;</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">raw_rt</span>.<span class="ruby-identifier">slice</span>(<span class="ruby-value">1</span>, <span class="ruby-identifier">last</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-handle_ping" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">handle_ping</span><span
+            class="method-args">(token)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Handles ping message from server.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="handle_ping-source">
+            <pre><span class="ruby-comment"># File lib/vbot/bot_controller.rb, line 121</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">handle_ping</span> <span class="ruby-identifier">token</span>
+  <span class="ruby-node">&quot;PONG #{token}&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-ident_with_server" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">ident_with_server</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Identifies with server.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="ident_with_server-source">
+            <pre><span class="ruby-comment"># File lib/vbot/bot_controller.rb, line 103</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">ident_with_server</span>
+  <span class="ruby-node">&quot;USER #{@ident} * 8 :#{@gecos}\r\n&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-interpret_command" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">interpret_command</span><span
+            class="method-args">(data)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Parses the message from the server into a hash.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="interpret_command-source">
+            <pre><span class="ruby-comment"># File lib/vbot/bot_controller.rb, line 144</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">interpret_command</span>(<span class="ruby-identifier">data</span>)
+  {
+    <span class="ruby-value">reply_to:</span> <span class="ruby-identifier">get_nick_rt</span>(<span class="ruby-identifier">data</span>[<span class="ruby-value">0</span>]),
+    <span class="ruby-value">pm:</span> <span class="ruby-identifier">is_private_message?</span>(<span class="ruby-identifier">data</span>[<span class="ruby-value">2</span>]),
+    <span class="ruby-value">command:</span> <span class="ruby-identifier">data</span>[<span class="ruby-value">4</span>],
+    <span class="ruby-value">arguments:</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">slice</span>(<span class="ruby-value">5</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>)
+  }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-is_private_message-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">is_private_message?</span><span
+            class="method-args">(window)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Determines if private message.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="is_private_message-3F-source">
+            <pre><span class="ruby-comment"># File lib/vbot/bot_controller.rb, line 137</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">is_private_message?</span>(<span class="ruby-identifier">window</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">window</span> <span class="ruby-operator">==</span> <span class="ruby-ivar">@chan</span>
+  <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-join_to_channel" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">join_to_channel</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Joins to channel on IRC server.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="join_to_channel-source">
+            <pre><span class="ruby-comment"># File lib/vbot/bot_controller.rb, line 109</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">join_to_channel</span>
+  <span class="ruby-node">&quot;JOIN #{@chan}\r\n&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-nick_to_server" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">nick_to_server</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Gives nick to server.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="nick_to_server-source">
+            <pre><span class="ruby-comment"># File lib/vbot/bot_controller.rb, line 97</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">nick_to_server</span>
+  <span class="ruby-node">&quot;NICK #{@nick}\r\n&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-parse_message" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">parse_message</span><span
+            class="method-args">(data)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Performs logic on message to determine response.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="parse_message-source">
+            <pre><span class="ruby-comment"># File lib/vbot/bot_controller.rb, line 165</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">parse_message</span>(<span class="ruby-identifier">data</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">handle_ping</span> <span class="ruby-identifier">data</span>[<span class="ruby-value">1</span>] <span class="ruby-keyword">if</span> <span class="ruby-identifier">data</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&#39;PING&#39;</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">join_to_channel</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">data</span>[<span class="ruby-value">1</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&#39;376&#39;</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">data</span>[<span class="ruby-value">1</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&#39;422&#39;</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">exec_command_subroutine</span>(<span class="ruby-identifier">interpret_command</span>(<span class="ruby-identifier">data</span>)) <span class="ruby-keyword">if</span> <span class="ruby-identifier">data</span>[<span class="ruby-value">1</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&#39;PRIVMSG&#39;</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">data</span>[<span class="ruby-value">3</span>] <span class="ruby-operator">==</span> <span class="ruby-node">&quot;:#{@nick}&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-quit_from_server" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">quit_from_server</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Quits IRC server.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="quit_from_server-source">
+            <pre><span class="ruby-comment"># File lib/vbot/bot_controller.rb, line 115</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">quit_from_server</span>
+  <span class="ruby-string">&#39;QUIT&#39;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-send_message" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">send_message</span><span
+            class="method-args">(msg)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Writes to socket output.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="send_message-source">
+            <pre><span class="ruby-comment"># File lib/vbot/bot_controller.rb, line 173</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">send_message</span>(<span class="ruby-identifier">msg</span>)
+  <span class="ruby-ivar">@socket</span>.<span class="ruby-identifier">puts</span> <span class="ruby-identifier">msg</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.0.4.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+
