@@ -95,31 +95,31 @@ module Vbot
     ##
     # Gives nick to server.
     def nick_to_server
-      "NICK #{@nick}\r\n"
+      ["NICK #{@nick}\r\n"]
     end
 
     ##
     # Identifies with server.
     def ident_with_server
-      "USER #{@ident} * 8 :#{@gecos}\r\n"
+      ["USER #{@ident} * 8 :#{@gecos}\r\n"]
     end
 
     ##
     # Joins to channel on IRC server.
     def join_to_channel
-      "JOIN #{@chan}\r\n"
+      ["JOIN #{@chan}\r\n"]
     end
 
     ##
     # Quits IRC server.
     def quit_from_server
-      'QUIT'
+      ['QUIT']
     end
 
     ##
     # Handles ping message from server.
     def handle_ping token
-      "PONG #{token}"
+      ["PONG #{token}"]
     end
 
     ##
@@ -154,9 +154,9 @@ module Vbot
     # Executes command subroutines.
     def exec_command_subroutine(command_hash)
       if command_hash[:command].upcase == 'HOWDY' && command_hash[:pm] == true
-        "PRIVMSG #{command_hash[:reply_to]} :Howdy, #{command_hash[:reply_to]}.\r\n"
+        ["PRIVMSG #{command_hash[:reply_to]} :Howdy, #{command_hash[:reply_to]}.\r\n"]
       elsif command_hash[:command].upcase == 'HOWDY' && command_hash[:pm] == false
-        "PRIVMSG #{@chan} :Howdy, #{command_hash[:reply_to]}.\r\n"
+        ["PRIVMSG #{@chan} :Howdy, #{command_hash[:reply_to]}.\r\n"]
       end
     end
 
@@ -170,8 +170,10 @@ module Vbot
 
     ##
     # Writes to socket output.
-    def send_message(msg)
-      @socket.puts msg
+    def send_message(messages)
+      messages.each do |msg|
+        @socket.puts msg
+      end
     end
   end
 end

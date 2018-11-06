@@ -428,9 +428,9 @@ server.</p>
             <pre><span class="ruby-comment"># File lib/vbot/bot_controller.rb, line 155</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">exec_command_subroutine</span>(<span class="ruby-identifier">command_hash</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">command_hash</span>[<span class="ruby-value">:command</span>].<span class="ruby-identifier">upcase</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;HOWDY&#39;</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">command_hash</span>[<span class="ruby-value">:pm</span>] <span class="ruby-operator">==</span> <span class="ruby-keyword">true</span>
-    <span class="ruby-node">&quot;PRIVMSG #{command_hash[:reply_to]} :Howdy, #{command_hash[:reply_to]}.\r\n&quot;</span>
+    [<span class="ruby-node">&quot;PRIVMSG #{command_hash[:reply_to]} :Howdy, #{command_hash[:reply_to]}.\r\n&quot;</span>]
   <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">command_hash</span>[<span class="ruby-value">:command</span>].<span class="ruby-identifier">upcase</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;HOWDY&#39;</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">command_hash</span>[<span class="ruby-value">:pm</span>] <span class="ruby-operator">==</span> <span class="ruby-keyword">false</span>
-    <span class="ruby-node">&quot;PRIVMSG #{@chan} :Howdy, #{command_hash[:reply_to]}.\r\n&quot;</span>
+    [<span class="ruby-node">&quot;PRIVMSG #{@chan} :Howdy, #{command_hash[:reply_to]}.\r\n&quot;</span>]
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -501,7 +501,7 @@ server.</p>
           <div class="method-source-code" id="handle_ping-source">
             <pre><span class="ruby-comment"># File lib/vbot/bot_controller.rb, line 121</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">handle_ping</span> <span class="ruby-identifier">token</span>
-  <span class="ruby-node">&quot;PONG #{token}&quot;</span>
+  [<span class="ruby-node">&quot;PONG #{token}&quot;</span>]
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -534,7 +534,7 @@ server.</p>
           <div class="method-source-code" id="ident_with_server-source">
             <pre><span class="ruby-comment"># File lib/vbot/bot_controller.rb, line 103</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">ident_with_server</span>
-  <span class="ruby-node">&quot;USER #{@ident} * 8 :#{@gecos}\r\n&quot;</span>
+  [<span class="ruby-node">&quot;USER #{@ident} * 8 :#{@gecos}\r\n&quot;</span>]
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -639,7 +639,7 @@ server.</p>
           <div class="method-source-code" id="join_to_channel-source">
             <pre><span class="ruby-comment"># File lib/vbot/bot_controller.rb, line 109</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">join_to_channel</span>
-  <span class="ruby-node">&quot;JOIN #{@chan}\r\n&quot;</span>
+  [<span class="ruby-node">&quot;JOIN #{@chan}\r\n&quot;</span>]
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -672,7 +672,7 @@ server.</p>
           <div class="method-source-code" id="nick_to_server-source">
             <pre><span class="ruby-comment"># File lib/vbot/bot_controller.rb, line 97</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">nick_to_server</span>
-  <span class="ruby-node">&quot;NICK #{@nick}\r\n&quot;</span>
+  [<span class="ruby-node">&quot;NICK #{@nick}\r\n&quot;</span>]
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -740,7 +740,7 @@ server.</p>
           <div class="method-source-code" id="quit_from_server-source">
             <pre><span class="ruby-comment"># File lib/vbot/bot_controller.rb, line 115</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">quit_from_server</span>
-  <span class="ruby-string">&#39;QUIT&#39;</span>
+  [<span class="ruby-string">&#39;QUIT&#39;</span>]
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -756,7 +756,7 @@ server.</p>
         
         <div class="method-heading">
           <span class="method-name">send_message</span><span
-            class="method-args">(msg)</span>
+            class="method-args">(messages)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -772,8 +772,10 @@ server.</p>
           
           <div class="method-source-code" id="send_message-source">
             <pre><span class="ruby-comment"># File lib/vbot/bot_controller.rb, line 173</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">send_message</span>(<span class="ruby-identifier">msg</span>)
-  <span class="ruby-ivar">@socket</span>.<span class="ruby-identifier">puts</span> <span class="ruby-identifier">msg</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">send_message</span>(<span class="ruby-identifier">messages</span>)
+  <span class="ruby-identifier">messages</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">msg</span><span class="ruby-operator">|</span>
+    <span class="ruby-ivar">@socket</span>.<span class="ruby-identifier">puts</span> <span class="ruby-identifier">msg</span>
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
