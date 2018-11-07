@@ -165,7 +165,7 @@ module Vbot
     def parse_message(data)
       return handle_ping data[1] if data[0] == 'PING'
       return join_to_channel if data[1] == '376' || data[1] == '422'
-      return exec_command_subroutine(interpret_command(data)) if data[1] == 'PRIVMSG' && data[3] == ":#{@nick}"
+      return exec_command_subroutine(interpret_command(data)) if data[1] == 'PRIVMSG' && (data[3] == ":#{@nick}" || data[3] == ':<>')
     end
 
     ##
