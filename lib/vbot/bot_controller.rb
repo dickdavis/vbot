@@ -111,15 +111,15 @@ module Vbot
     end
 
     ##
-    # Quits IRC server.
-    def quit_from_server
-      ['QUIT']
-    end
-
-    ##
     # Handles ping message from server.
     def handle_ping token
       ["PONG #{token}"]
+    end
+
+    ##
+    # Quits IRC server.
+    def quit_from_server
+      ['QUIT']
     end
 
     ##
@@ -151,21 +151,10 @@ module Vbot
     end
 
     ##
-    # Executes command subroutines.
-    def exec_command_subroutine(command_hash)
-      if command_hash[:command].upcase == 'HOWDY' && command_hash[:pm] == true
-        ["PRIVMSG #{command_hash[:reply_to]} :Howdy, #{command_hash[:reply_to]}.\r\n"]
-      elsif command_hash[:command].upcase == 'HOWDY' && command_hash[:pm] == false
-        ["PRIVMSG #{@chan} :Howdy, #{command_hash[:reply_to]}.\r\n"]
-      end
-    end
-
-    ##
     # Performs logic on message to determine response.
     def parse_message(data)
       return handle_ping data[1] if data[0] == 'PING'
       return join_to_channel if data[1] == '376' || data[1] == '422'
-      return exec_command_subroutine(interpret_command(data)) if data[1] == 'PRIVMSG' && (data[3] == ":#{@nick}" || data[3] == ':<>')
     end
 
     ##

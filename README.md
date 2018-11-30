@@ -12,7 +12,7 @@ gem install vbot
 
 * Or require it in your project Gemfile:
 ```
-gem 'vbot', '~> 0.2.1
+gem 'vbot', '~> 0.4.0
 ```
 
 Then,
@@ -36,15 +36,9 @@ end
 
 ### Subclass Vbot::BotController Class
 Subclass the `Vbot::BotController` class and include the modules containing the custom functionality.
-Override the `exec_command_subroutine` method to use the new functionality, returning a string to send
-to the IRC server if you desire a response message to be sent.
+Override the `parse_message` method to respond to a message sent to it. Then, create a method to perform a desired action.
+This newly created method should return a string formatted similar to the return values in the example method below.
 
-The message from the server containing the command is parsed into a hash that should get passed into the
-`exec_command_subroutine` method. The hash contains
-* the reply to nick (`command_hash[:reply_to] // string`),
-* whether the command was given via channel or private message (`command_hash[:pm] // boolean: true if given via PM`), 
-* the actual command (`command_hash[:command] // string`),
-* and any arguments that follow the command (`command_hash[:arguments] // array`).
 ```
 require 'vbot'
 require './quotehayek.rb'
@@ -55,12 +49,26 @@ class MyBot < Vbot::BotController
   include QuoteHayek
 
   ##
+  # Performs logic on message to determine response.
+  def parse_message(data)
+    return exec_command_subroutine(interpret_command(data)) if data[1] == 'PRIVMSG' && (data[3] == ":#{@nick}" || data[3] == ':<>')
+    super
+  end
+
+  ##
   # Executes command subroutines.
   def exec_command_subroutine(command_hash)
-    if command_hash[:command].upcase == 'HOWDY' && command_hash[:pm] == true
-      "PRIVMSG #{command_hash[:reply_to]} :Howdy, #{command_hash[:reply_to]}.\r\n"
-    elsif command_hash[:command].upcase == 'HOWDY' && command_hash[:pm] == false
-      "PRIVMSG #{@chan} :Howdy, #{command_hash[:reply_to]}.\r\n"
+    rt = command_hash[:reply_to]
+    pm = command_hash[:pm]
+    cmd = command_hash[:command]
+    args = command_hash[:arguments]
+
+    if cmd.upcase == 'HOWDY'
+      if pm == true
+        ["PRIVMSG #{rt} :Howdy, #{rt}.\r\n"]
+      else
+        ["PRIVMSG #{@chan} :Howdy, #{rt}.\r\n"]
+      end
     end
   end
 end
@@ -97,19 +105,26 @@ vbot.handle_connection
 
 ### Give Commands
 To give commands to your bot, send it a message over IRC structured as:
+
 ```
 "(BOT'S NICK) (COMMAND) (ARGUMENTS)"
 ```
 
 Example:
+
 ```
 $ verboten quote-hayek
 ```
+
+Of course, you are not required to use the bot's nick as the trigger.
 
 ## TODO
 * Increase test coverage.
 
 ## Changelog
+### 2018-11-29
+* Refactored `parse_message` method to remove reference to `exec_command_subroutine` method. This will allow subclasses to define their own logic for handling triggers.
+
 ### 2018-11-03
 * Refactored project files.
 * Structured test file.
