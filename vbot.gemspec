@@ -21,14 +21,14 @@ lib = File.expand_path('../lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |s|
-	s.name          = 'vbot'
-	s.version       = '0.4.0'
-	s.platform      = Gem::Platform::RUBY
-	s.authors       = ['Richard Davis']
-  s.email         = 'rv@member.fsf.org'
-	s.homepage      = 'http://github.com/d3d1rty/vbot'
-	s.summary       = 'Ruby library for building IRC bots'
-	s.description   = <<~HEREDOC
+  s.name          = 'vbot'
+  s.version       = '0.5.1'
+  s.platform      = Gem::Platform::RUBY
+  s.authors       = ['Richard Davis']
+  s.email         = 'dick@rvdavis.me'
+  s.homepage      = 'http://gitlab.com/d3d1rty/vbot'
+  s.summary       = 'Ruby library for building IRC bots'
+  s.description   = <<~HEREDOC
     vbot is an IRC bot library that aims to be make building and extending IRC bots more efficient.
   HEREDOC
   s.license       = 'GPL-3.0'

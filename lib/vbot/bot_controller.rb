@@ -35,6 +35,8 @@ module Vbot
     attr_reader :port
     # The nick for the bot.
     attr_reader :nick
+    # The pass for the bot.
+    attr_reader :pass
     # The name to identify to the server with.
     attr_reader :ident
     # The gecos for the bot.
@@ -48,6 +50,7 @@ module Vbot
       @server = config['server']
       @port = config['port']
       @nick = config['nick']
+      @pass = config['pass']
       @ident = config['ident']
       @gecos = config['gecos']
       @chan = config['chan']
@@ -60,6 +63,7 @@ module Vbot
       @socket = TCPSocket.open @server, @port
       send_message nick_to_server
       send_message ident_with_server
+      send_message identify_with_nickserv
     end
 
     ##
@@ -96,6 +100,12 @@ module Vbot
     # Gives nick to server.
     def nick_to_server
       ["NICK #{@nick}\r\n"]
+    end
+
+    ##
+    # Identifies with server.
+    def identify_with_nickserv
+      ["PRIVMSG NickServ :IDENTIFY #{@pass}\r\n"]
     end
 
     ##
